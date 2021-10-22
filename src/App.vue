@@ -1,21 +1,36 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+    <ScopeSlider v-model="data1" :min="0" :max="10" :barColors="barColorSet"/>
+    <div style="margin-left:100px;"/>
+    <ScopeSlider v-model="data2" :vertical="true" :min="0" :max="10" />
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import HelloWorld from "./components/HelloWorld.vue";
+import { defineComponent, ref } from '@vue/composition-api'
+import ScopeSlider from './lib/index.vue'
 
-@Component({
+export default defineComponent({
   components: {
-    HelloWorld
+    ScopeSlider
+  },
+  setup() {
+    const data1 = [2, 5, 8];
+    const data2 = ref(0);
+
+    const barColorSet = [
+      '#409eff', '#ffb340', '#ff4049', '#409eff'
+    ]
+
+    return {
+      data1,
+      data2,
+      barColorSet
+    }
   }
 })
-export default class App extends Vue {}
 </script>
+
 
 <style>
 #app {
@@ -25,5 +40,12 @@ export default class App extends Vue {}
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+</style>
+
+<style lang="scss">
+#app {
+  display: flex;
+  justify-content: center;
 }
 </style>

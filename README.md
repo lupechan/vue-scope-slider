@@ -1,4 +1,4 @@
-# vue-scope-slider
+# vue-multi-slider
 
 ## Project setup
 ```

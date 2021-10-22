@@ -1,0 +1,133 @@
+$axis-base-color: #e4e7ed;
+$tap-color: white;
+$tap-border-color: #409eff;
+$tap-size: 16px;
+$tooltip-bg-color:#303133;
+$tooltip-color:#fff;
+
+.scope-slider {
+  position: relative;
+  &::before {
+    content: '';
+    position: absolute;
+    background-color: $axis-base-color;
+    z-index: -1;
+  }
+}
+
+.scope-slider-bar {
+  position: absolute;
+  z-index: 1;
+
+  &::before {
+    content: '';
+    position:absolute;
+    background-color: inherit;
+    z-index: 2;
+  }
+}
+
+.scope-slider-tap-wrap {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+}
+
+.scope-slider-tap {
+  width: $tap-size;
+  height: $tap-size;
+  border: 2px solid $tap-border-color;
+  background-color: $tap-color;
+  border-radius: 50%;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: transform 0.2s;
+
+  &:hover, &.hover {
+    transform: scale(1.2);
+    & + .scope-slider-tooltip {
+      opacity: 1;
+    }
+  }
+}
+
+.scope-slider-tooltip {
+  position: absolute;
+  background: $tooltip-bg-color;
+  color: $tooltip-color;
+  padding: 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  opacity: 0;
+  min-width: 2em;
+
+  &::after {
+    width: 0;
+    height: 0;
+    content: '';
+    position: absolute;
+    border-color: transparent;
+    border-width: 5px;
+    border-style: solid;
+  }
+}
+
+.scope-slider.vertical {
+  height: 300px;
+  width: $tap-size;
+  
+  .scope-slider-bar {
+    left: 50%;
+  }
+
+  &::before, .scope-slider-bar::before {
+    width: 5px;
+    height: 100%;
+    left: 50%;
+    bottom: ($tap-size / 2);
+    transform: translateX(-50%);
+  }
+
+  .scope-slider-tooltip {
+    top: 50%;
+    left: calc(100% + 10px);
+    transform: translateY(-50%);
+
+    &::after {
+      right: 100%;
+      top: 50%;
+      border-right-color: $tooltip-bg-color;
+      transform: translateY(-50%);
+    }
+  }
+}
+
+.scope-slider.horizontal {
+  width: 300px;
+  height: $tap-size;
+
+  .scope-slider-bar {
+    top: 50%;
+  }
+
+  &::before, .scope-slider-bar::before {
+    height: 5px;
+    width: 100%;
+    top: 50%;
+    left: ($tap-size / 2);
+    transform: translateY(-50%);
+  }
+
+  .scope-slider-tooltip {
+    left: 50%;
+    bottom: calc(100% + 10px);
+    transform: translateX(-50%);
+    &::after {
+      left: 50%;
+      top: 100%;
+      border-top-color: $tooltip-bg-color;
+      transform: translateX(-50%);
+    }
+  }
+}
